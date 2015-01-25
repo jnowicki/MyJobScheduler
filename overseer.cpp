@@ -1,5 +1,4 @@
 #include <iostream>
-#include <future>
 #include <algorithm>
 #include "overseer_machine.hpp"
 
@@ -20,20 +19,23 @@ void Overseer::start(int JobsQt){
 		if( i > 0) {
 			s_exec_last_d = second_d.at( i - 1);
 		} 
-		int s_exec_start = std::max(f_exec_d, s_exec_last_d);
+		int s_exec_start = std::max(f_exec_d, s_exec_last_d);	//czas rozpoczecia zadania na drugiej maszynie
 		
 		std::cout << "Overseer: time of start of job " << i + 1 << " for second machine equals " << s_exec_start << std::endl;
 		
 		second_t.push_back(s_exec_start);
 		
-		int s_exec_t = second->doJob( i + 1);
+		int s_exec_t = second->doJobWithHoles( i + 1, s_exec_start);
 		int s_exec_d = s_exec_t + second_t.at(i);
 		second_d.push_back(s_exec_d);
 		std::cout << "Overseer: time of end of job " << i + 1 << " for second machine equals " << s_exec_d << std::endl;
-	}
+	};
+	
+	
+	
 	
 };
 
 Overseer::Overseer(Machine * _first, Machine * _second) : first(_first), second(_second){
-	timePosition = 0;
+	
 };

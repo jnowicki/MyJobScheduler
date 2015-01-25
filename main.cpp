@@ -2,7 +2,6 @@
 #include <time.h>
 #include <vector>
 #include <iostream>
-#include <future>
 #include "overseer_machine.hpp"
 
 #define JOBS_QUANTITY 3 	// ilosc zadan w jednej maszynie
@@ -36,6 +35,16 @@ vector<int> generateJobs(int jobsQt){
 
 int main(){
 	
+	
+	// generowanie dziur
+	
+	cout << "Generator: generating holes" << endl;
+	cout << "Generator: position1, position2" << endl;
+	
+	vector<int> holePos = generateHoles(HOLE_T, HOLE_L);					// deklaracja i inicjacja tablicy pozycji dziur
+	
+	// ---------------------------------------------------------------
+	
 	// generowanie losowe dlugosci zadan dla poszczegolnych maszyn
 	
 	srand (time(NULL));
@@ -48,17 +57,10 @@ int main(){
 	cout << "Generator: generating jobs for second machine " << endl;
 	cout << "Generator: <job nr, job length>" << endl;
 	
-	Machine second = Machine(2, generateJobs(JOBS_QUANTITY));
+	Machine second = Machine(2, generateJobs(JOBS_QUANTITY), holePos);
 	
 	// -------------------------------------------------------------
-	// generowanie dziur
-	
-	cout << "Generator: generating holes" << endl;
-	cout << "Generator: position1, position2" << endl;
-	
-	vector<int> holePos = generateHoles(HOLE_T, HOLE_L);					// deklaracja i inicjacja tablicy pozycji dziur
-	
-	// ---------------------------------------------------------------
+
 	
 	Overseer boss = Overseer(&first, &second);								// przypisanie maszyn i inicjacja overseera
 	

@@ -1,22 +1,17 @@
 #include <vector>
 #include <iostream>
-#include <future>
 #include <math.h>
 
 #include "overseer_machine.hpp"
 
-int Machine::timePosition; 						// deklaracja zmiennej statycznej
-
 Machine::Machine(int a, std::vector<int> b) { 		// definicja konstruktora
 	machineNumber = a;
 	jobs = b;
-	lastJobNr = 0;
 };
 
 Machine::Machine(int a, std::vector<int> b, std::vector<int> c) {
 	machineNumber = a;
 	jobs = b;
-	lastJobNr = 0;
 	holePos = c;
 };
 
@@ -36,18 +31,19 @@ int Machine::doJobWithHoles( int jobNr, int start_t) {
 		int hole = holePos.at(i);
 		if(hole > jobLength + start_t) break;
 		
-		 if(!(hole < start_t) && !(exec_t + start_t < hole)){
-			 exec_t += 1;
-			 wait_t += 1;
-			 punished = true;
-		 }
+		std::cout << "Machine " << machineNumber << ": task " << jobNr << " hole = " << hole << " ,start_t + 1 = " << start_t + 1 << ", exec_t + start_t + 1 = " << exec_t + start_t + 1 << std::endl;
+		
+		if(!(hole < start_t + 1) && !(exec_t + start_t + 1 < hole)){
+			exec_t += 1;
+			wait_t += 1;
+			punished = true;
+		}
 	};
 	
 	if(punished){
-		int half = floor(jobLength/2.0);		
+		int half = floor(jobLength/2.0);
 		exec_t += half;
-		wait_t += half;		
-		std::cout << "Machine " << machineNumber << ": task " << jobNr << " encountered a hole. Lost time was " << wait_t << std::endl;	
+		std::cout << "Machine " << machineNumber << ": task " << jobNr << " encountered a hole. Lost time due to holes was " << wait_t << " , due to punishment " << half << std::endl;	
 	};
 		
 	std::cout << "Machine " << machineNumber << ": task " << jobNr << " finished with time " << exec_t << std::endl;
