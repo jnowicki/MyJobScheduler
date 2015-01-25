@@ -62,7 +62,7 @@ int main(){
 	
 	Overseer boss = Overseer(&first, &second);								// przypisanie maszyn i inicjacja overseera
 	
-	boss.start();
+	boss.start(JOBS_QUANTITY);
 	
 	return 0;
 };
