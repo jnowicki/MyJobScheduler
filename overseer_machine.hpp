@@ -12,6 +12,7 @@ class Overseer{
 	Machine * second;
 	public:
 		void start(int);
+		void print(int);
 		Overseer(Machine*, Machine*);
 };
 
