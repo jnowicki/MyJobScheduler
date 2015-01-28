@@ -2,7 +2,7 @@
 #include <iostream>
 #include <math.h>
 
-#include "overseer_machine.hpp"
+#include "classes.hpp"
 
 Machine::Machine(int a) { 		// definicja konstruktora
 	machineNumber = a;

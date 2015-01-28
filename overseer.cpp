@@ -2,16 +2,19 @@
 #include <string>
 #include <algorithm>
 #include <utility>
-#include "overseer_machine.hpp"
+#include "classes.hpp"
 
 int Overseer::doJobs(int jobNr) {
 
     std::cout << "Overseer: started tasks " << jobNr << std::endl;
+
     if (jobNr == 0) {
         first_t.push_back(0);
     };
     if (jobNr > 0) {
+        
         first_t.push_back(first_d.at(jobNr - 1));
+        
     }
     std::cout << "Overseer: time of start of job " << jobNr + 1 << " for first machine equals " << first_t.at(jobNr) << std::endl;
     int f_exec_t = first.doJob(jobNr + 1); //czas egzekucji pierwszego zadania
@@ -52,6 +55,7 @@ void Overseer::updatePairs(jobPair taken){    // skasuj te pary ktore juz wykorz
             pairs.erase(pairs.begin() + i);
         };
     };
+    //std::cout << "Overseer: Updated pair " << job1 << " " << job2 << std::endl;
 };
 
 std::vector<jobPair> Overseer::getPairs(){
