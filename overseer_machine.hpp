@@ -2,7 +2,7 @@
 #include <utility>
 #pragma once
 
-class jobPair{
+class jobPair{ // para par xD generalnie chodzi o to że nie chce stracic numerku pracy ktory mam na poczatku (j1,j2,j3,j4,j5,j6)
 	public:
 		std::pair<int, int> jobLengths;
 		std::pair<int, int> jobIdent;

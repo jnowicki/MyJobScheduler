@@ -49,7 +49,7 @@ void algorithm(std::vector<int> jobs, std::vector<int> holePos){
 		};
 	};
         
-        const int nrOfPairs = pairArr.size();
+        const int nrOfPairs = pairArr.size(); // poczatkowa liczba par
         
 	std::cout << "Algorithm: pair generated:" << std::endl;
 	for( int i = 0; i < nrOfPairs; i++){
@@ -59,7 +59,7 @@ void algorithm(std::vector<int> jobs, std::vector<int> holePos){
 	
         std::vector<Overseer> overseers;
         
-	for( int i = 0; i < nrOfPairs; i++){            //stworz dla kazdej pary odpowiadajacego overseera
+	for( int i = 0; i < nrOfPairs; i++){            //stworz dla kazdej pary odpowiadajacego overseera czyli taka inicjalizacja
             Machine first = Machine(1);
             Machine second = Machine(2, holePos);
             Overseer brandnew = Overseer(first,second, i);
@@ -67,7 +67,9 @@ void algorithm(std::vector<int> jobs, std::vector<int> holePos){
             std::cout << "Algorithm: Overseer " << i << " created." << std::endl; 
 	};
         
-        std::vector<int> differences;
+        //tutaj musze zrobic fora ktory tyle ile jest zadan w jednej maszynie przewertuje to
+        
+        std::vector<int> differences;       //matryca roznic
         
         for( int i = 0; i < nrOfPairs; i++) {           
             Overseer boss = overseers.at(i);
@@ -79,17 +81,17 @@ void algorithm(std::vector<int> jobs, std::vector<int> holePos){
             differences.push_back(difference);
             std::cout << "Algorithm: difference for " << i << " is " << difference << std::endl;
         };
-        int bestTime = 100;
+        int bestTime = differences.at(0);
         for(int i = 0; i < differences.size(); i++ ){                                   // znajdz najlepszy czas
             if(bestTime > differences.at(i)) bestTime = differences.at(i);
             std::cout << "Algorithm: difference for " << i << " is " << differences.at(i) << std::endl;
         };
         
-        std::vector<Overseer> bestOverseers;
+        std::vector<Overseer*> bestOverseers; //wskazniki bo po co robic nowe overseery
         
         for(int i = 0; i < nrOfPairs; i++){
             if(differences.at(i) == bestTime) { 
-                bestOverseers.push_back(overseers.at(i));
+                bestOverseers.push_back(&overseers.at(i));
                 std::cout << "Algorithm: Overseer " << overseers.at(i).getId() << " selected as best" << std::endl; 
             };
         };
