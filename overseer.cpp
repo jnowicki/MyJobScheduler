@@ -41,7 +41,24 @@ int Overseer::getId(){
     return id;
 }
 
-Overseer::Overseer(Machine _first, Machine _second, int _id) : first(_first), second(_second), id(_id){};
+void Overseer::updatePairs(jobPair taken){    // skasuj te pary ktore juz wykorzystalo 
+    int job1 = taken.jobIdent.first;
+    int job2 = taken.jobIdent.second;
+    
+    for(int i = 0; i < pairs.size(); i++){
+        int ident1 = pairs.at(i).jobIdent.first;
+        int ident2 = pairs.at(i).jobIdent.second;
+        if(( ident1 == job1) || ( ident1 == job2) || (ident2 == job1) || (ident2 == job2)){
+            pairs.erase(pairs.begin() + i);
+        };
+    };
+};
+
+std::vector<jobPair> Overseer::getPairs(){
+    return pairs;
+};
+
+Overseer::Overseer(Machine _first, Machine _second, int _id, std::vector<jobPair> _pairs) : first(_first), second(_second), id(_id), pairs(_pairs){};
 
 jobPair::jobPair(std::pair<int, int> f, std::pair<int, int> s){
 	jobLengths = f;

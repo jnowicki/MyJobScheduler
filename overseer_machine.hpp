@@ -27,14 +27,17 @@ class Overseer{
 	std::vector<int> second_d;							// na drugiej
 	std::vector<int> first_t;							//czas startu prac na pierwszej maszynie
 	std::vector<int> second_t;							//czas startu na drugiej
-	std::vector<int> jobs;	
+	std::vector<int> jobs;
+        std::vector<jobPair> pairs;
         int id;
 	public:
             Machine first;
             Machine second;
+            void updatePairs(jobPair);
+            std::vector<jobPair> getPairs();
             int getId();
             int doJobs(int);
-            Overseer(Machine, Machine, int);
+            Overseer(Machine, Machine, int, std::vector<jobPair>);
 };
 
 

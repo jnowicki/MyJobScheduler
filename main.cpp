@@ -33,6 +33,14 @@ vector<int> generateJobs(int jobsQt){
 	return generated;
 };
 
+std::vector<Overseer*> nextStep(std::vector<Overseer*) candidates, int step){
+    if(step < 3){
+        
+        step++;
+        
+    }
+};
+
 void algorithm(std::vector<int> jobs, std::vector<int> holePos){
 	
 	std::vector<jobPair> pairArr;
@@ -62,7 +70,7 @@ void algorithm(std::vector<int> jobs, std::vector<int> holePos){
 	for( int i = 0; i < nrOfPairs; i++){            //stworz dla kazdej pary odpowiadajacego overseera czyli taka inicjalizacja
             Machine first = Machine(1);
             Machine second = Machine(2, holePos);
-            Overseer brandnew = Overseer(first,second, i);
+            Overseer brandnew = Overseer(first,second, i, pairArr);
             overseers.push_back(brandnew);
             std::cout << "Algorithm: Overseer " << i << " created." << std::endl; 
 	};
