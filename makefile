@@ -9,3 +9,6 @@ machine.o: machine.cpp overseer_machine.hpp
 	
 overseer.o: overseer.cpp overseer_machine.hpp
 	g++ -std=gnu++0x -c overseer.cpp
+	
+clean:
+	rm -rf *.o app.exe 

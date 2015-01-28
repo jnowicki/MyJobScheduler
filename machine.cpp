@@ -4,16 +4,20 @@
 
 #include "overseer_machine.hpp"
 
-Machine::Machine(int a, std::vector<int> b) { 		// definicja konstruktora
+Machine::Machine(int a) { 		// definicja konstruktora
 	machineNumber = a;
-	jobs = b;
 };
 
-Machine::Machine(int a, std::vector<int> b, std::vector<int> c) {
+Machine::Machine(int a, std::vector<int> c) {
 	machineNumber = a;
-	jobs = b;
 	holePos = c;
 };
+
+void Machine::addJob(int jobLength, int ident) {
+    jobs.push_back(jobLength);
+    idents.push_back(ident);
+    std::cout << "Machine " << machineNumber << ": added job j" << ident << " of size " << jobLength << std::endl;
+}
 
 int Machine::doJob (int jobNr) {
 	unsigned int jobLength = jobs.at(jobNr - 1);
