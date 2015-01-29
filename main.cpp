@@ -151,8 +151,6 @@ bool algorithm(std::vector<int> jobs, std::vector<int> holePos){
         std::cout << "Algorithm: Selected best matches" << std::endl;
         for(int i = 0; i < matches.size(); i++){
             Overseer tmp = matches.at(i);
-            std::cout<< "Algorithm: Overseer " << tmp.getId() << ":" << std::endl;
-            std::cout<< "Algorithm: first d, second d, first t, second t" << std::endl;
             tmp.printValues();
             
         }
