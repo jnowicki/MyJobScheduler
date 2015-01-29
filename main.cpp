@@ -14,8 +14,9 @@
 #define TIMELINE_EX_L 100	// spodziewana szacowana dlugosc linii czasu
 #define MAX_JOB_LENGTH 4 	// maksymalna dlugosc zadania
 
-static std::vector<Overseer> matches;
-double alpha;
+static std::vector<Overseer> matches;   // najlepsze instancje
+double alpha;                   //alpha, def z klawiatury
+int jobQt;                      //ilosc prac, definiowalna z klawiatury
 
 std::vector<int> generateHoles(int h_interval, int h_length){ 
 																		//generowanie dziur na linii czasu.											
@@ -101,7 +102,7 @@ bool algorithm(std::vector<int> jobs, std::vector<int> holePos){
                     if(i != j){
 			std::pair <int, int> lengths (jobs.at(i), jobs.at(j));
 			std::pair <int, int> idents (i+1, j+1);
-			jobPair newPair (lengths, idents);
+			jobPair newPair (lengths, idents, jobs.at(i) + jobs.at(j));
 			pairArr.push_back(newPair);
                     }
 		};
@@ -122,7 +123,7 @@ bool algorithm(std::vector<int> jobs, std::vector<int> holePos){
             brandnew.first.addJob(pairArr.at(i).jobLengths.first, pairArr.at(i).jobIdent.first );
             brandnew.second.addJob(pairArr.at(i).jobLengths.second, pairArr.at(i).jobIdent.second );
             brandnew.updatePairs(pairArr.at(i));
-            int expectedEndTime = pairArr.at(i).jobLengths.first + pairArr.at(i).jobLengths.second;
+            int expectedEndTime = pairArr.at(i).expectedTime;   // czas oczekiwany
             int endTime = brandnew.doJobs(0);
             int difference = endTime - expectedEndTime;
             differences.push_back(difference);
@@ -182,6 +183,27 @@ int main(){
     srand(time(NULL));
     cout << "Give me alpha: " << std::endl;
     cin >> alpha;
+      
+    int pairNr; 
+    cout << "How many job pairs do you want to create?" << std::endl;
+    cin >> pairNr;
+    std::vector<jobPair> pairArr;
+    for(int i = 0; i < pairNr; i++){
+        unsigned int l1, l2, ex;
+        cout << "Input j" << i + 1 << " first task length " << std::endl;
+        cin >> l1;
+        cout << "Input j" << i + 1 << " second task length " << std::endl;
+        cin >> l2;
+        cout << "Input j" << i + 1 << " expected time " << std::endl;
+        cin >> ex;
+        pairArr.push_back(jobPair(make_pair(l1,l2), make_pair(i+1,i+1), ex));
+    };
+    
+    for( int i = 0; i < pairNr; i++){
+        cout << "j" << i+1 << ": <" << pairArr.at(i).jobLengths.first << "," << pairArr.at(i).jobLengths.second << ">, ex time= " << pairArr.at(i).expectedTime << std::endl;
+    };
+    
+    jobQt = pairNr;
     
     algorithm(generateJobs(JOBS_QUANTITY), holePos);
 

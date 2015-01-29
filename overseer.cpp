@@ -91,3 +91,9 @@ jobPair::jobPair(std::pair<int, int> f, std::pair<int, int> s){
 	jobLengths = f;
 	jobIdent = s;
 };
+
+jobPair::jobPair(std::pair<int, int> f, std::pair<int, int> s, int h){
+	jobLengths = f;
+	jobIdent = s;
+        expectedTime = h;
+};

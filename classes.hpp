@@ -9,7 +9,9 @@ class jobPair{ // para par xD generalnie chodzi o to że nie chce stracic numerk
 	public:
 		std::pair<int, int> jobLengths;
 		std::pair<int, int> jobIdent;
+                int expectedTime;
 		jobPair(std::pair<int, int>, std::pair<int, int>);
+                jobPair(std::pair<int, int>, std::pair<int, int>, int);
 };
 
 class Machine{
