@@ -3,6 +3,8 @@
 #include <string>
 #pragma once
 
+
+
 class jobPair{ // para par xD generalnie chodzi o to że nie chce stracic numerku pracy ktory mam na poczatku (j1,j2,j3,j4,j5,j6)
 	public:
 		std::pair<int, int> jobLengths;
@@ -16,7 +18,6 @@ class Machine{
         std::vector<int> idents;        // tablica zadan
 	std::vector<int> holePos; 										// ostatnie zadanie wykonane na tej maszynie
 	public:
-            
 		int doJobWithHoles(int,int);
 		int doJob(int);
                 void addJob(int, int);                // wykonaj nastepne zadanie na tej maszynie 							

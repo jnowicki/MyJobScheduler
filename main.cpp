@@ -15,6 +15,7 @@
 #define MAX_JOB_LENGTH 4 	// maksymalna dlugosc zadania
 
 static std::vector<Overseer> matches;
+double alpha;
 
 std::vector<int> generateHoles(int h_interval, int h_length){ 
 																		//generowanie dziur na linii czasu.											
@@ -39,9 +40,9 @@ std::vector<int> generateJobs(int jobsQt){
 
 
 bool nextStep(std::vector<Overseer> candidates, int step, std::vector<int> holePos){
-    std::cout << "Algorithm: entering step " << step << std::endl;
-    
-    if(step < 3){    
+     
+    if(step < 3){
+        std::cout << "Algorithm: entering step " << step << std::endl;
         std::vector<Overseer> bestOverseers;
         std::map<Overseer, int> results;       //matryca roznic
         int bestTime;
@@ -81,6 +82,7 @@ bool nextStep(std::vector<Overseer> candidates, int step, std::vector<int> holeP
         step++;
         nextStep(bestOverseers, step, holePos);
     } else {
+        std::cout << "Algorithm: finished at step " << step-1 << std::endl;
         matches = candidates;
         return 0;
     }
@@ -131,7 +133,7 @@ bool algorithm(std::vector<int> jobs, std::vector<int> holePos){
 	};
         
         std::vector<Overseer> bestOverseers;
-               //matryca roznic
+                                            //matryca roznic
         int bestTime;
            
         bestTime = differences.at(0);
@@ -178,6 +180,8 @@ int main(){
     vector<int> holePos = generateHoles(hole_t, hole_l); // deklaracja i inicjacja tablicy pozycji dziur
 
     srand(time(NULL));
+    cout << "Give me alpha: " << std::endl;
+    cin >> alpha;
     
     algorithm(generateJobs(JOBS_QUANTITY), holePos);
 

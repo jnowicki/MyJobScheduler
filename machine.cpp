@@ -1,10 +1,13 @@
 #include <vector>
 #include <iostream>
 #include <math.h>
+#include <algorithm>
 
 #include "classes.hpp"
 
-#define MSG false
+#define MSG true
+
+extern double alpha;
 
 Machine::Machine(int a) { 		// definicja konstruktora
 	machineNumber = a;
@@ -32,7 +35,9 @@ int Machine::doJobWithHoles( int jobNr, int start_t) {
 	int exec_t = jobLength;
 	bool punished = false;
 	int wait_t = 0;
-	
+        
+        std::vector<int> holes;
+        
 	for(int i = 0; i < holePos.size(); i++){
 		int hole = holePos.at(i);
 		if(hole > jobLength + start_t) break;
@@ -40,16 +45,21 @@ int Machine::doJobWithHoles( int jobNr, int start_t) {
 		if(MSG) std::cout << "Machine " << machineNumber << ": task " << jobNr << " hole = " << hole << " ,start_t + 1 = " << start_t + 1 << ", exec_t + start_t + 1 = " << exec_t + start_t + 1 << std::endl;
 		
 		if(!(hole < start_t + 1) && !(exec_t + start_t + 1 < hole)){
+                    if(i%2 == 0) holes.push_back(hole); //dla parzystych indeksow
 			exec_t += 1;
 			wait_t += 1;
 			punished = true;
 		}
 	};
-	
-	if(punished){
-		int half = floor(jobLength/2.0);
-		exec_t += half;
-		if(MSG) std::cout << "Machine " << machineNumber << ": task " << jobNr << " encountered a hole. Lost time due to holes was " << wait_t << " , due to punishment " << half << std::endl;	
+            
+	if(punished){ //jezeli wpadles w dziure
+            double jobDoneBeforeHole = 0;      
+                for(int i = 0; i < holes.size(); i++ ){
+                    jobDoneBeforeHole += holes.at(i) - (start_t + 1);    
+                }
+		int punishment = std::max(floor(alpha * jobDoneBeforeHole), 0.0); //liczenie ile wynosi kara
+		exec_t += punishment;
+		if(MSG) std::cout << "Machine " << machineNumber << ": task " << jobNr << " encountered a hole. Lost time due to holes was " << wait_t << " , due to punishment " << punishment << std::endl;	
 	};
 		
 	if(MSG) std::cout << "Machine " << machineNumber << ": task " << jobNr << " finished with time " << exec_t << std::endl;
