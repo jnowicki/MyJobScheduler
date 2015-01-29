@@ -67,14 +67,14 @@ bool Overseer::operator<(const Overseer& b) const{
 
 void Overseer::printValues() const{
     std::cout<< "Overseer " << this->getId() << ": first machine: " << std::endl;
-    std::cout<< "Overseer " << this->getId() << ": job nr, job length, job finish time (d)" << std::endl;
+    std::cout<< "Overseer " << this->getId() << ": job nr, job length, job finish time, jobPair l" << std::endl;
     for(int j = 0; j < this->first_d.size(); j++ ){      
-        std::cout << "Overseer " << this->getId() << ": " <<  this->pairs.at(j).jobIdent.first << ", " << this->pairs.at(j).jobLengths.first << ", " << this->first_d.at(j) << std::endl;
+        std::cout << "Overseer " << this->getId() << ": " <<  this->pairs.at(j).jobIdent.first << ", " << this->pairs.at(j).jobLengths.first << ", " << this->first_d.at(j) << ", " << this->l.at(j) << std::endl;
     };
     std::cout<< "Overseer " << this->getId() << ": second machine: " << std::endl;
-    std::cout<< "Overseer " << this->getId() << ": job nr, job length, job finish time (d)" << std::endl;
+    std::cout<< "Overseer " << this->getId() << ": job nr, job length, job finish time, jobPair l" << std::endl;
     for(int j = 0; j < this->second_d.size(); j++ ){      
-        std::cout << "Overseer " << this->getId() << ": " <<  this->pairs.at(j).jobIdent.second << ", " << this->pairs.at(j).jobLengths.second << ", " << this->second_d.at(j) << std::endl;
+        std::cout << "Overseer " << this->getId() << ": " <<  this->pairs.at(j).jobIdent.second << ", " << this->pairs.at(j).jobLengths.second << ", " << this->second_d.at(j) << ", " << this->l.at(j) << std::endl;
     };
     
     std::cout << "Overseer " << this->getId() << ": " << "total time of execution for this instance is " << std::max(this->first_d.back(), this->second_d.back()) << std::endl;

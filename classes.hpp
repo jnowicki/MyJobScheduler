@@ -16,6 +16,7 @@ class Machine{
         std::vector<int> idents;        // tablica zadan
 	std::vector<int> holePos; 										// ostatnie zadanie wykonane na tej maszynie
 	public:
+            
 		int doJobWithHoles(int,int);
 		int doJob(int);
                 void addJob(int, int);                // wykonaj nastepne zadanie na tej maszynie 							
@@ -31,6 +32,7 @@ class Overseer{
         std::vector<jobPair> pairs;
         int id;
 	public:
+            std::vector<int> l;
             Machine first;
             Machine second;
             void updatePairs(jobPair);

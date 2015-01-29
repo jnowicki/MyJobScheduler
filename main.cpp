@@ -57,6 +57,7 @@ bool nextStep(std::vector<Overseer> candidates, int step, std::vector<int> holeP
                 int expectedEndTime = rootPairs.at(j).jobLengths.first + rootPairs.at(j).jobLengths.second;
                 int endTime = brandnew.doJobs(step);
                 int difference = endTime - expectedEndTime;
+                brandnew.l.push_back(difference); 
                 results.insert ( std::make_pair(brandnew, difference) );
             }
             std::cout << "Algorithm: created all children for candidate " << candidates.at(i).getId() << std::endl;
@@ -123,6 +124,7 @@ bool algorithm(std::vector<int> jobs, std::vector<int> holePos){
             int endTime = brandnew.doJobs(0);
             int difference = endTime - expectedEndTime;
             differences.push_back(difference);
+            brandnew.l.push_back(difference); 
             overseers.push_back(brandnew);
             //std::cout << "Algorithm: Overseer " << i << " created." << std::endl; 
             //std::cout << "Algorithm: difference for " << i << " is " << difference << std::endl;
