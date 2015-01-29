@@ -1,5 +1,6 @@
 #include <vector>
 #include <utility>
+#include <string>
 #pragma once
 
 class jobPair{ // para par xD generalnie chodzi o to że nie chce stracic numerku pracy ktory mam na poczatku (j1,j2,j3,j4,j5,j6)
@@ -33,10 +34,12 @@ class Overseer{
             Machine first;
             Machine second;
             void updatePairs(jobPair);
+            void printValues() const;
             std::vector<jobPair> getPairs();
-            int getId();
+            int getId() const;
             int doJobs(int);
             Overseer(Machine, Machine, int, std::vector<jobPair>);
+            bool operator<(const Overseer& b) const;
 };
 
 
