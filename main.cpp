@@ -106,9 +106,9 @@ bool algorithm(std::vector<int> jobs, std::vector<int> holePos){
         
         const int nrOfPairs = pairArr.size(); // poczatkowa liczba par
         
-	//std::cout << "Algorithm: pair generated:" << std::endl;
+	std::cout << "Algorithm: pair generated:" << std::endl;
 	for( int i = 0; i < nrOfPairs; i++){
-		//std::cout << "Algorithm: " << i+1 << ". j" << pairArr.at(i).jobIdent.first << "- " << pairArr.at(i).jobLengths.first << ", j";
+		std::cout << "Algorithm: " << i+1 << ". j" << pairArr.at(i).jobIdent.first << "- " << pairArr.at(i).jobLengths.first << ", j";
 		std::cout << pairArr.at(i).jobIdent.second << "- " << pairArr.at(i).jobLengths.second << std::endl;
 	};  
         
