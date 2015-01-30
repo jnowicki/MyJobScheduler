@@ -56,7 +56,7 @@ bool nextStep(std::vector<Overseer> candidates, int step, std::vector<int> holeP
                 brandnew.first.addJob(rootPairs.at(j).jobLengths.first, rootPairs.at(j).jobIdent.first );
                 brandnew.second.addJob(rootPairs.at(j).jobLengths.second, rootPairs.at(j).jobIdent.second);
                 brandnew.updatePairs(j);
-                int expectedEndTime = rootPairs.at(j).jobLengths.first + rootPairs.at(j).jobLengths.second;
+                int expectedEndTime = rootPairs.at(j).expectedTime;
                 int endTime = brandnew.doJobs(step);
                 int difference = endTime - expectedEndTime;
                 brandnew.l.push_back(difference); 
