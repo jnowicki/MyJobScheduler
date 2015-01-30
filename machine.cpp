@@ -18,6 +18,10 @@ Machine::Machine(int a, std::vector<int> c) {
 	holePos = c;
 };
 
+std::pair<int,int> Machine::getJobAt(int i) const{
+  return std::make_pair(jobs.at(i),idents.at(i));  
+};
+
 void Machine::addJob(int jobLength, int ident) {
     jobs.push_back(jobLength);
     idents.push_back(ident);
@@ -42,7 +46,7 @@ int Machine::doJobWithHoles( int jobNr, int start_t) {
 		int hole = holePos.at(i);
 		if(hole > jobLength + start_t) break;
 		
-		if(MSG) std::cout << "Machine " << machineNumber << ": task " << jobNr << " hole = " << hole << " ,start_t + 1 = " << start_t + 1 << ", exec_t + start_t + 1 = " << exec_t + start_t + 1 << std::endl;
+		//if(MSG) std::cout << "Machine " << machineNumber << ": task " << jobNr << " hole = " << hole << " ,start_t + 1 = " << start_t + 1 << ", exec_t + start_t + 1 = " << exec_t + start_t + 1 << std::endl;
 		
 		if(!(hole < start_t + 1) && !(exec_t + start_t + 1 < hole)){
                     if(i%2 == 0) holes.push_back(hole); //dla parzystych indeksow

@@ -42,7 +42,7 @@ std::vector<int> generateJobs(int jobsQt){
 
 bool nextStep(std::vector<Overseer> candidates, int step, std::vector<int> holePos){
      
-    if(step < 3){
+    if(step < jobQt){
         std::cout << "Algorithm: entering step " << step << std::endl;
         std::vector<Overseer> bestOverseers;
         std::map<Overseer, int> results;       //matryca roznic
@@ -55,7 +55,7 @@ bool nextStep(std::vector<Overseer> candidates, int step, std::vector<int> holeP
                 Overseer brandnew = root;             
                 brandnew.first.addJob(rootPairs.at(j).jobLengths.first, rootPairs.at(j).jobIdent.first );
                 brandnew.second.addJob(rootPairs.at(j).jobLengths.second, rootPairs.at(j).jobIdent.second);
-                brandnew.updatePairs(rootPairs.at(j));
+                brandnew.updatePairs(j);
                 int expectedEndTime = rootPairs.at(j).jobLengths.first + rootPairs.at(j).jobLengths.second;
                 int endTime = brandnew.doJobs(step);
                 int difference = endTime - expectedEndTime;
@@ -89,32 +89,14 @@ bool nextStep(std::vector<Overseer> candidates, int step, std::vector<int> holeP
     }
 };
 
-bool algorithm(std::vector<int> jobs, std::vector<int> holePos){
+bool algorithm(std::vector<jobPair> pairArr, std::vector<int> holePos){
 	
         std::vector<Overseer> overseers;
-	std::vector<jobPair> pairArr;
         std::vector<Overseer> bestMatch;
         std::vector<int> differences;
-	const int nrOfJobs = jobs.size();
-        
-	for( int i = 0; i < nrOfJobs; i++){
-		for ( int j = 0; j < nrOfJobs; j++){
-                    if(i != j){
-			std::pair <int, int> lengths (jobs.at(i), jobs.at(j));
-			std::pair <int, int> idents (i+1, j+1);
-			jobPair newPair (lengths, idents, jobs.at(i) + jobs.at(j));
-			pairArr.push_back(newPair);
-                    }
-		};
-	};
         
         const int nrOfPairs = pairArr.size(); // poczatkowa liczba par
         
-	std::cout << "Algorithm: pair generated:" << std::endl;
-	for( int i = 0; i < nrOfPairs; i++){
-		std::cout << "Algorithm: " << i+1 << ". j" << pairArr.at(i).jobIdent.first << "- " << pairArr.at(i).jobLengths.first << ", j";
-		std::cout << pairArr.at(i).jobIdent.second << "- " << pairArr.at(i).jobLengths.second << std::endl;
-	};  
         
 	for( int i = 0; i < nrOfPairs; i++){            //stworz dla kazdej pary odpowiadajacego overseera czyli taka inicjalizacja
             Machine first = Machine(1);
@@ -122,7 +104,7 @@ bool algorithm(std::vector<int> jobs, std::vector<int> holePos){
             Overseer brandnew = Overseer(first,second, i, pairArr);
             brandnew.first.addJob(pairArr.at(i).jobLengths.first, pairArr.at(i).jobIdent.first );
             brandnew.second.addJob(pairArr.at(i).jobLengths.second, pairArr.at(i).jobIdent.second );
-            brandnew.updatePairs(pairArr.at(i));
+            brandnew.updatePairs(i);
             int expectedEndTime = pairArr.at(i).expectedTime;   // czas oczekiwany
             int endTime = brandnew.doJobs(0);
             int difference = endTime - expectedEndTime;
@@ -205,7 +187,7 @@ int main(){
     
     jobQt = pairNr;
     
-    algorithm(generateJobs(JOBS_QUANTITY), holePos);
+    algorithm(pairArr, holePos);
 
     return 0;
 };
